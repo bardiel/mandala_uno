@@ -143,11 +143,46 @@ void draw() {
   popMatrix();
 
   /**
-   * Triángulos 
+   * Triángulos para un lado
    */
   pushMatrix();
-  outerTheta = TAU;
   outerAngle = TAU / 6;
+  outerTheta = TAU + outerAngle / 1.5;
+
+  for(int i = 0; i < 2; i++) {
+    rotate(outerTheta);
+    outerTheta += outerAngle;
+   
+    theta = TAU;
+    angle = TAU / 3;
+    float c = 2 * (rI / 2) * sin(angle/2);
+
+    float cX1 = sin(theta) * rI / 2;
+    float cY1 = cos(theta) * rI / 2;
+    float cX2 = sin(theta + angle) * rI / 2;
+    float cY2 = cos(theta + angle) * rI / 2;
+
+    
+    
+    beginShape();
+    for(int j = 0; j < 3; j++) {
+      float x = sin(theta) * rI / 2;
+      float y = cos(theta) * rI / 2;
+      vertex(x, y);
+      theta += angle;
+    }
+
+    endShape(CLOSE);
+  }
+  popMatrix();
+
+  /**
+   * Triángulos pa'l otro lado
+   */
+  pushMatrix();
+  outerAngle = TAU / 6;
+  outerTheta = TAU - outerAngle / 1.5;
+
   for(int i = 0; i < 2; i++) {
     rotate(outerTheta);
     outerTheta += outerAngle;
