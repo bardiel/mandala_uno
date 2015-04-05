@@ -1,4 +1,12 @@
 /**
+ * https://github.com/bardiel/mandala_uno
+ * 
+ * @author Bardiel W. Thirtytwo <bardiel@bardiel.com.ar>
+ * @version 0.0.0
+ * @since 2015-04-05
+ */
+
+/**
  * PI is wrong
  * http://tauday.com/tau-manifesto
  */
