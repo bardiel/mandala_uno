@@ -125,9 +125,10 @@ void draw() {
    */
   pushMatrix();
   float outerAngle = TAU / 7;
-  float outerTheta = TAU - outerAngle * 2;
-  for(int j = 0; j < 2; j++) {
-    rotate(outerTheta);
+  float outerTheta = TAU;
+  for(int j = 0; j < 5; j++) {
+    if((j + 1 ) % 2 == 0) rotate(outerTheta);
+    else rotate(outerTheta * -1);
     beginShape();
     theta = TAU;
     angle = TAU / 6;
@@ -138,7 +139,7 @@ void draw() {
       theta += angle;
     }
     endShape(CLOSE);
-    outerTheta += outerAngle;
+    outerTheta += outerAngle ;
   }
   popMatrix();
 
