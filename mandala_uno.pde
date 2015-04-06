@@ -120,6 +120,7 @@ void draw() {
   angle = TAU / 16;
   theta = TAU;
   float r3 = rO / 2;
+
   pushMatrix();
   for(int i = 0; i < 16; i+=2) {
     rotate(theta);
@@ -127,6 +128,34 @@ void draw() {
     theta += angle;
   }
   popMatrix();
+  theta = TAU;
+  for(int i = 0; i < 16; i++ ) {
+    float xx = sin(theta) * r3 / 5.5;
+    float yy = cos(theta) * r3 / 5.5;
+    line(0, 0, xx, yy);
+    theta += angle;
+  }
+
+  /**
+   * Una flarcita para el medio, también
+   * (probar los óvalos y flor al mismo tiempo ;))
+   */
+  // angle = TAU / 12;
+  // theta = TAU;
+  // ellipse(0, 0, r3 / 4, r3 / 4);
+  // // beginShape();
+  // for(int i = 0; i < 12; i++) {
+  //   float x = sin(theta) * r3 / 8;
+  //   float y = cos(theta) * r3 / 8;
+  //   float xx = sin(theta) * r3 / 5.5;
+  //   float yy = cos(theta) * r3 / 5.5;
+  //   ellipse(x, y, r3 / 4, r3 / 4);
+  //   // vertex(xx, yy);
+  //   line(0, 0, xx, yy);
+  //   // ellipse(xx, yy, 5, 5);
+  //   theta += angle;
+  // }
+  // // endShape(CLOSE);
 
   /** 
    * Los hexágonos del medio
@@ -241,6 +270,57 @@ void draw() {
   //   outerTheta += outerAngle;
   // }
   // popMatrix();
+
+
+  /**
+   * Pentágonos para afuera
+   */
+  pushMatrix();
+  outerAngle = TAU / 7;
+  outerTheta = TAU + outerAngle;
+  for(int j = 1; j < 5; j++) {
+    if((j + 1 ) % 2 == 0) rotate(outerTheta);
+    else rotate(outerTheta * -1);
+    beginShape();
+    theta = TAU;
+    angle = TAU / 5;
+    for(int i = 0; i < 5; i++) {
+      // float x = sin(theta) * rO / 1.725;
+      // float y = cos(theta) * rO / 1.725;
+      float x = sin(theta) * rO / 1.6;
+      float y = cos(theta) * rO / 1.6;
+      vertex(x, y);
+      theta += angle;
+    }
+    endShape(CLOSE);
+    outerTheta += outerAngle;
+  }
+  popMatrix();
+
+  /**
+   * Hexágonos para afuera
+   */
+  // pushMatrix();
+  // outerAngle = TAU / 7;
+  // outerTheta = TAU;
+  // for(int j = 0; j < 5; j++) {
+  //   if((j + 1 ) % 2 == 0) rotate(outerTheta);
+  //   else rotate(outerTheta * -1);
+  //   beginShape();
+  //   theta = TAU;
+  //   angle = TAU / 6;
+  //   for(int i = 0; i < 6; i++) {
+  //     // float x = sin(theta) * rO / 1.725; //con éstos queda JUSTO sobre la circunsferencia
+  //     // float y = cos(theta) * rO / 1.725;
+  //     float x = sin(theta) * rO / 1.7;
+  //     float y = cos(theta) * rO / 1.7;
+  //     vertex(x, y);
+  //     theta += angle;
+  //   }
+  //   endShape(CLOSE);
+  //   outerTheta += outerAngle;
+  // }
+  // popMatrix();  
 
   popMatrix();
 }
