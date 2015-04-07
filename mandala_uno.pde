@@ -62,7 +62,7 @@ void draw() {
   /**
    * Puntos para el círculo externo
    */
-  PVector outerPoints[] = new PVector[30];
+  PVector outerPoints[] = new PVector[60];
   float angle = TAU / outerPoints.length;
   float theta = TAU;
   for(int i = 0; i < outerPoints.length; i++) {
@@ -70,7 +70,6 @@ void draw() {
     float y = cos(theta) * rO / 2;
     outerPoints[i] = new PVector(x, y);
     // fill(255);
-    // noStroke();
     // ellipse(x, y, 5, 5); //círculo para marcar los puntos
     theta += angle;
   }
@@ -79,7 +78,7 @@ void draw() {
   /**
    * Puntos para el círculo interno
    */
-  PVector innerPoints[] = new PVector[60];
+  PVector innerPoints[] = new PVector[outerPoints.length * 2];
   angle = TAU / innerPoints.length;
   theta = TAU + (angle / 2);
   for(int i = 0; i < innerPoints.length; i++) {
@@ -87,32 +86,25 @@ void draw() {
     float y = cos(theta) * rI / 2;
     innerPoints[i] = new PVector(x, y);
     // fill(255,0,0);
-    // noStroke();
     // ellipse(x, y, 5, 5); //círculo para marcar los puntos
     theta += angle;
   }
 
-  /**
-   * Descomentar si se dibujanl los puntos en los
-   * círculos externos
-   */
-  // noFill();
-  // stroke(210);
+  noFill();
 
   /** 
    * Las liñítas entre los círculos
    */
   for(int i = 0; i < innerPoints.length; i+=2) {
-    // stroke(255);    
     line(innerPoints[i].x, innerPoints[i].y, outerPoints[i/2].x, outerPoints[i/2].y);
   }
 
   for(int i = 1; i < innerPoints.length; i+=2) {
-    // stroke(255);
     if((i+1) / 2 < outerPoints.length)
       line(innerPoints[i].x, innerPoints[i].y, outerPoints[(i+1)/2].x, outerPoints[(i+1)/2].y);    
   }
   line(innerPoints[innerPoints.length - 1].x, innerPoints[innerPoints.length - 1].y, outerPoints[0].x, outerPoints[0].y);
+
 
   /**
    * Los óvalos del medio
@@ -251,7 +243,7 @@ void draw() {
   /**
    * Pentágonos 
    */
-  pushMatrix();
+  // pushMatrix();
   // int axis  = 5;
   // outerAngle = TAU / axis;
   // outerTheta = TAU + outerAngle / 1.5;
@@ -320,7 +312,59 @@ void draw() {
   //   endShape(CLOSE);
   //   outerTheta += outerAngle;
   // }
-  // popMatrix();  
+  // popMatrix();
 
+  /**
+   * Hojitas y pistilos
+   * TO DO: hacer los tamaños relativos
+   */
+  angle = TAU / 5;
+  theta = TAU;
+  // fill(255);
+  for(int i = 0; i < 5; i++) {
+    pushMatrix();
+    float x = sin(theta) * rO * 0.525;
+    float y = cos(theta) * rO * 0.525;
+    // line(x, y, xx, yy);
+    translate(x, y);
+    rotate(-theta);
+    line(0,0,0,50);
+
+    bezier(0, 0, 10, 10, 20, 10, 0, 50);
+
+    bezier(0, 0, -10, 10, -20, 10, -0, 50);
+
+    bezier(0, 0, 10, 10, 40, 5, 20, 70);
+    bezier(0, 0, 10, 5, 30, 5, 10, 60);
+
+    bezier(0, 0, -10, 10, -40, 5, -20, 70);
+    bezier(0, 0, -10, 5, -30, 5, -10, 60);
+
+    fill(210);
+    ellipse(20, 70, 5, 5);
+    ellipse(10, 60, 5, 5);
+    ellipse(-20, 70, 5, 5);
+    ellipse(-10, 60, 5, 5);
+    noFill();
+
+    theta += angle;
+    popMatrix();
+  }
+
+  /**
+   * Circulitos entre los triángulos de adentro
+   */
+  angle = TAU / 6;
+  theta = TAU;
+  fill(210);
+  for(int i = 0; i < 6; i++) {
+    float x = sin(theta) * rI * -0.33;
+    float y = cos(theta) * rI * -0.33;
+    ellipse(x, y, 10, 10);
+    // x = sin(theta) * rI * -0.265;
+    // y = cos(theta) * rI * -0.265;
+    // ellipse(x, y, 10, 10);
+    theta += angle;
+  }
   popMatrix();
 }
